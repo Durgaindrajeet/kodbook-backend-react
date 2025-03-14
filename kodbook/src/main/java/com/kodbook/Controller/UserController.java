@@ -15,6 +15,8 @@ import com.kodbook.Entity.User;
 import com.kodbook.Service.PostService;
 import com.kodbook.Service.UserService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class UserController {
 	
@@ -37,11 +39,13 @@ public class UserController {
 	}
     
     @PostMapping("/login")
-   	public String login(@RequestParam String username, @RequestParam String password, Model model) {
+   	public String login(@RequestParam String username, @RequestParam String password, Model model, HttpSession session) {
     	boolean status = service.validateUser(username,password);
     	if(status == true) {
     		List<Post> allPosts = postservice.fetchAllPosts();
+    		session.setAttribute("username", username);
     		model.addAttribute("allPosts", allPosts);
+    		model.addAttribute("session",session);
     		return"home";
     	}
     	else {
