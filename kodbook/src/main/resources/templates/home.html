@@ -16,22 +16,22 @@
     </nav>
 
     <div class="posts-container">
-        <span th:each="post : ${allPosts}">
+      <div th:each="post : ${allPosts}">
             <div class="post-card">
                 <!-- Profile picture and Username -->
                 <div class="post-header">
-                    <div class="profile-pic">
-                        <img th:if="${post.user.photoBase64}" 
-                             th:src="'data:image/jpeg;base64,' + ${post.user.photoBase64}" 
-                             alt="User Photo" />
-                    </div>
-                    
-                    <form action="/visitProfile" method="post">
-                    <span class="username" th:text="${post.user.username}">Unknown</span>
-	                    <input type="hidden" name="profileName" th:value="${post.user.username}">
-	                    
-	                    <input type="submit" value="Visit profile">
-	                </form>
+    <div class="profile-pic">
+        <img th:if="${post.user != null and post.user.photoBase64 != null}" 
+             th:src="'data:image/jpeg;base64,' + ${post.user.photoBase64}" 
+             alt="User Photo" />
+    </div>
+    <form action="/visitProfile" method="post">
+        <span class="username" th:text="${post.user != null ? post.user.username : 'Unknown User'}">Unknown User</span>
+        <input type="hidden" name="profileName" th:value="${post.user != null ? post.user.username : ''}">
+        <input type="submit" value="Visit profile">
+    </form>
+</div>
+
               
                 </div>
 

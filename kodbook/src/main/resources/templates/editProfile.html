@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>KodBook Sign up</title>
+<link rel="stylesheet" type="text/css" th:href="@{/styles.css}">
+</head>
+<body>
+<h1> KodBook</h1>
+<h3>Update your profile </h3>
+<hr>
+<form action="/updateProfile" method="post" enctype="multipart/form-data">
+
+
+<label>DOB:</label>
+<input type="date" name="dob">
+<br><br>
+
+<label>GENDER:</label>
+<label>M</label><input type="radio" name="gender" value = "M">
+<label>F</label><input type="radio" name="gender" value = "F">
+<label>O</label><input type="radio" name="gender" value = "O">
+<br><br>
+<label>CITY:</label>
+<input type="text" name="city">
+<br><br>
+
+<label>BIO:</label>
+<input type="text" name="bio">
+<br><br>
+<label>COLLEGE:</label>
+<input type="text" name="college">
+<br><br>
+<label>GITHUB:</label>
+<input type="text" name="github">
+<br><br>
+<label>LINKDIN:</label>
+<input type="text" name="linkdin">
+<br><br>
+
+<input type="submit" value="Update Profile">
+<hr>
+
+<a href ="/">Already have account? Login instead </a>
+
+</form>
+</body>
+</html>

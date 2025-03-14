@@ -17,6 +17,7 @@ import com.kodbook.Service.PostService;
 
 @Controller
 public class PostController {
+	
 	@Autowired
 	PostService service;
 	
