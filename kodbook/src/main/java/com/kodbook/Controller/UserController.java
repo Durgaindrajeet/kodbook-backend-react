@@ -1,5 +1,6 @@
 package com.kodbook.Controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,9 +55,29 @@ public class UserController {
     }
     
     @PostMapping("/updateProfile")
-    public String updateProfile(@RequestParam String dob, @RequestParam String gender, @RequestParam String bio,@RequestParam String college,@RequestParam String github,@RequestParam String linkdin,@RequestParam MultipartFile profilePic) {
-    	System.out.println(dob+ " "+bio);
+    public String updateProfile(@RequestParam String dob, @RequestParam String gender, @RequestParam String city,@RequestParam String bio,@RequestParam String college,@RequestParam String github,@RequestParam String linkdin,@RequestParam MultipartFile profilePic, HttpSession session, Model model){
+    	String username = (String)session.getAttribute("username");
+    	//fetch user object using username
+    	User user = service.getUser(username);
+    	//update and save object
+    	user.setDob(dob);
+    	user.setGender(gender);
+    	user.setCity(city);
+    	user.setBio(bio);
+    	user.setCollege(college);
+    	user.setGithub(github);
+    	user.setLinkdin(linkdin);
     	
+    	try {
+    		user.setProfilePic(profilePic.getBytes());
+		
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+    	
+    	service.updateUser(user);
+    
+    	model.addAttribute("user",user);
     	return "myProfile";
     }
 }

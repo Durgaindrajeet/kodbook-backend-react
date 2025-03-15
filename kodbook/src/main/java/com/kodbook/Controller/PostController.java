@@ -13,7 +13,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kodbook.Entity.Post;
+import com.kodbook.Entity.User;
 import com.kodbook.Service.PostService;
+import com.kodbook.Service.UserService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class PostController {
@@ -21,17 +25,36 @@ public class PostController {
 	@Autowired
 	PostService service;
 	
+	@Autowired
+	UserService userService;
+	
 	@PostMapping("/createPost")
-	public String createPost(@RequestParam ("caption") String caption, @RequestParam("photo")MultipartFile photo) {
+	public String createPost(@RequestParam ("caption") String caption, @RequestParam("photo")MultipartFile photo, Model model,HttpSession session) {
+		String username =(String)session.getAttribute("username");
+		User user = userService.getUser(username);
 		Post post = new Post();
-		post.setCaption(caption);
-		try {
-			post.setPhoto(photo.getBytes());
+		//updating post object
+		post.setUser(user);
 		
-		}catch(IOException e) {
+		post.setCaption(caption);
+		try {						
+			post.setPhoto(photo.getBytes());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		service.createPost(post);
+		//updating user object
+				List<Post> posts = user.getPost();
+				if(posts == null) {
+					posts = new ArrayList<Post>();
+				}
+				posts.add(post);
+				user.setPost(posts);
+				userService.updateUser(user);
+				
+		List<Post> allPosts = service.fetchAllPosts();
+		model.addAttribute("allPosts", allPosts);
 		return "home";
 	}
 	

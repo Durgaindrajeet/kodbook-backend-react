@@ -81,6 +81,10 @@ input[type="submit"]:hover {
     opacity: 0.8;
 }
 
+input[type="submit"]:focus {
+    outline: 3px solid #FFD7C4; /* Added focus styling for accessibility */
+}
+
 /* Links */
 a {
     display: inline-block;
@@ -92,4 +96,18 @@ a {
 
 a:hover {
     text-decoration: underline;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 600px) {
+    form {
+        width: 90%; /* Make the form width flexible */
+        padding: 20px; /* Adjust padding for smaller devices */
+    }
+    h1 {
+        font-size: 2em; /* Reduce the size of the heading */
+    }
+    h3 {
+        font-size: 1.2em; /* Scale down the tagline */
+    }
 }

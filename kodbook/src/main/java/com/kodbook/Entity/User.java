@@ -5,6 +5,7 @@ import java.util.Base64;
 import java.util.List;
 
 import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -29,7 +30,7 @@ public class User {
 	private String college;
 	private String github;
 	private String linkdin;
-	@OneToMany
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Post> post; 
 
 	@Lob
