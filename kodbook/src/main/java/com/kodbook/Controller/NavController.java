@@ -36,12 +36,12 @@ public class NavController {
 	}
 	
 	@GetMapping("/openCreatePost")
-	public String openCreatePost() {
+	public String openCreatePost( HttpSession session) {
 		return "createPost";
 	}
 	
 	@GetMapping("/goHome")
-	public String login(Model model) {
+	public String login(Model model, HttpSession session) {
 		List<Post> allPosts = postService.fetchAllPosts();
 		model.addAttribute("allPosts", allPosts);
 		return "home";
@@ -65,7 +65,7 @@ public class NavController {
 			return "index";
 	}
 	@PostMapping("/visitProfile")
-	public String visitProfile(@RequestParam String profileName, Model model) {
+	public String visitProfile(@RequestParam String profileName, Model model, HttpSession session) {
 		User user = service.getUser(profileName);
 		model.addAttribute("user", user);
 		List<Post> myPosts = user.getPost();
