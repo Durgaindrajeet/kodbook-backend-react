@@ -47,10 +47,23 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void updateUser(User user) {
+	public User updateUser(User user) {
 		
-		repo.save(user);
+		return repo.save(user);
 	}
+	public boolean resetPassword(String username, String newPassword) {
+        User user = repo.findByUsername(username);
+        if (user != null) {
+            user.setPassword(newPassword);
+            System.out.println("Password updated for " + username);
+            repo.save(user);
+            return true;
+        }
+        System.out.println("User not found for " + username);
+        return false;
+    }
+
+
 
 
 }

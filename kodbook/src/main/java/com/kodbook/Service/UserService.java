@@ -12,6 +12,10 @@ public interface UserService  {
 
 	User getUser(String username);
 
-	void updateUser(User user);
+	User updateUser(User user);
+
+	boolean resetPassword(String username, String password);
+
+
 
 }
